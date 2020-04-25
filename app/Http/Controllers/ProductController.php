@@ -29,9 +29,8 @@ class ProductController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|min:2|max:128',
+            'stocked' => 'required|boolean'
         ]);
-
-        return response('OK');
 
         $product = new Product([
             'name' => $data['name'],
@@ -89,7 +88,7 @@ class ProductController extends Controller
     {
         $product = $request->user()->products()->find($id);
 
-        $product->destroy();
+        $product->delete();
 
         return response()->json(['status' => 'ok']);
     }
